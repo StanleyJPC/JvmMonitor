@@ -1,4 +1,4 @@
-package com.anyuncloud.model;
+package com.anyuncloud.jvm.model;
 
 public class MemoryInfo {
 	private String name;			//名称 heap堆 or non-heap堆

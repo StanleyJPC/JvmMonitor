@@ -1,4 +1,4 @@
-package com.anyuncloud;
+package com.anyuncloud.jvm;
 
 import java.lang.management.*;
 import java.util.HashMap;
@@ -45,6 +45,7 @@ public class JvmCpu {
         for (ThreadInfo info : threadInfos) {
             // elapsedCpu is in ns
             Long initialCPU = threadInitialCPU.get(info.getThreadId());
+            System.out.println(info.getThreadId());
             if (initialCPU != null) {
                 long elapsedCpu = threadCurrentCPU.get(info.getThreadId()) - initialCPU;
                 float cpuUsage = elapsedCpu / (elapsedTime * 1000000F * nrCPUs);

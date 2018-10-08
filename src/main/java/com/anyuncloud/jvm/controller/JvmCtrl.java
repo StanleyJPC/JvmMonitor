@@ -1,6 +1,7 @@
-package com.anyuncloud.controller;
-import com.anyuncloud.model.*;
-import com.anyuncloud.service.JvmInfoService;
+package com.anyuncloud.jvm.controller;
+import com.anyuncloud.jvm.model.*;
+import com.anyuncloud.jvm.model.*;
+import com.anyuncloud.jvm.service.JvmInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

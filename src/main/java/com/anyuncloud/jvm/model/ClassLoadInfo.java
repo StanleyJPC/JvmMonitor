@@ -1,4 +1,4 @@
-package com.anyuncloud.model;
+package com.anyuncloud.jvm.model;
 
 public class ClassLoadInfo {
 

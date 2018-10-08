@@ -1,4 +1,4 @@
-package com.anyuncloud.service;
+package com.anyuncloud.jvm.service;
 
 import java.io.IOException;
 import java.lang.management.ClassLoadingMXBean;
@@ -25,13 +25,13 @@ import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
 
+import com.anyuncloud.jvm.model.ClassLoadInfo;
 import org.springframework.stereotype.Service;
 
-import com.anyuncloud.model.ClassLoadInfo;
-import com.anyuncloud.model.JVMThreadInfo;
-import com.anyuncloud.model.MemoryInfo;
-import com.anyuncloud.model.OSInfo;
-import com.anyuncloud.model.RuntimeInfo;
+import com.anyuncloud.jvm.model.JVMThreadInfo;
+import com.anyuncloud.jvm.model.MemoryInfo;
+import com.anyuncloud.jvm.model.OSInfo;
+import com.anyuncloud.jvm.model.RuntimeInfo;
 
 @Service
 public class JvmInfoService {
