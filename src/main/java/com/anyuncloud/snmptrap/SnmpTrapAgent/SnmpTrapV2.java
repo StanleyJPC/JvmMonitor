@@ -1,5 +1,6 @@
-package com.anyuncloud.snmptrap;
+package com.anyuncloud.snmptrap.SnmpTrapAgent;
 
+import com.anyuncloud.snmptrap.SnmpTrapAgent.HostAgent.HostDataGetImpl;
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;
 import org.snmp4j.Snmp;
@@ -9,65 +10,40 @@ import org.snmp4j.smi.*;
 import org.snmp4j.transport.DefaultTcpTransportMapping;
 
 import java.util.Date;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @Author Stanlly_Jpc
  * @E-mail <1073887513@qq.com>                   Y(^_^)Y  ≡[。。]≡  o(╯□╰)o
- * @Date on 2018-09-26 上午11:32                            /\ /\
+ * @Date on 2018-10-17 上午10:41                            /\ /\
  */
-public class TrapSenderVersion2 {
+public class SnmpTrapV2 {
     public static final String community = "1234qwer";
-
 
     // Sending Trap for sysLocation of RFC1213
 
     public static final String Oid = ".1.3.6.1.4.1.2345";
 
 
-    //IP of Local Host
+    //IP of Server Host
 
-    public static final String ipAddress = "15.45.255.144";
+    public static final String ipAddress = "192.168.2.101";
 
 
     //Ideally Port 162 should be used to send receive Trap, any other available Port can be used
 
-    public static final int port = 162;
-
-
-    public static void main(String[] args) {
-
-            final TrapSenderVersion2 trapV2 = new TrapSenderVersion2();
-
-            Runnable runnable = new Runnable() {
-                public void run() {
-                    System.out.println(new Date());
-                    trapV2.sendTrap_Version2();
-
-                }
-            };
-            ScheduledExecutorService service = Executors.newScheduledThreadPool(5);
-            service.scheduleWithFixedDelay(runnable, 1, 5, TimeUnit.SECONDS);
-        }
-//        TrapSenderVersion2 trapV2 = new TrapSenderVersion2();
-//
-//        trapV2.sendTrap_Version2();
-
-
-
-    /**
-     * This methods sends the V1 trap to the Localhost in port 162
-     */
-
+    public static final int port = 8899;
     public void sendTrap_Version2() {
-
+         HostDataGetImpl hostDataGet = new HostDataGetImpl();
         try {
 
             // Create Transport Mapping
 
             TransportMapping transport = new DefaultTcpTransportMapping();
+
+            //TransportMapping transport = new DefaultUdpTransportMapping();
+            /*
+                tcp最后关闭才能关闭链接，udp不同
+             */
 
             transport.listen();
 
@@ -111,7 +87,7 @@ public class TrapSenderVersion2 {
 
             pdu.add(new VariableBinding(new OID(Oid), new OctetString(
 
-                    "mytest is a oid")));
+                    hostDataGet.hostdata().toString())));
 
             pdu.setType(PDU.NOTIFICATION);
 
@@ -132,6 +108,4 @@ public class TrapSenderVersion2 {
         }
 
     }
-
 }
-

@@ -5,10 +5,7 @@ import org.snmp4j.mp.MPv1;
 import org.snmp4j.mp.MPv2c;
 import org.snmp4j.security.Priv3DES;
 import org.snmp4j.security.SecurityProtocols;
-import org.snmp4j.smi.OctetString;
-import org.snmp4j.smi.TcpAddress;
-import org.snmp4j.smi.TransportIpAddress;
-import org.snmp4j.smi.UdpAddress;
+import org.snmp4j.smi.*;
 import org.snmp4j.transport.AbstractTransportMapping;
 import org.snmp4j.transport.DefaultTcpTransportMapping;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
@@ -16,6 +13,7 @@ import org.snmp4j.util.MultiThreadedMessageDispatcher;
 import org.snmp4j.util.ThreadPool;
 
 import java.io.IOException;
+import java.util.Vector;
 
 /**
  * @Author Stanlly_Jpc
@@ -26,7 +24,7 @@ public class TrapReceiver implements CommandResponder {
     public static void main(String[] args) {
         TrapReceiver snmp4jTrapReceiver = new TrapReceiver();
         try {
-            snmp4jTrapReceiver.listen(new TcpAddress("0.0.0.0/162"));
+            snmp4jTrapReceiver.listen(new TcpAddress("0.0.0.0/8899"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -85,7 +83,15 @@ public class TrapReceiver implements CommandResponder {
 
             System.out.println("Trap Type = " + pdu.getType());
 
-            System.out.println("Variables = " + pdu.getVariableBindings());
+            Vector<VariableBinding> recVBs = (Vector<VariableBinding>) cmdRespEvent.getPDU()
+                    .getVariableBindings();
+            for (int i = 0; i < recVBs.size(); i++) {
+                VariableBinding recVB = recVBs.elementAt(i);
+                System.out
+                        .println(recVB.getOid() + " : " + recVB.getVariable());
+            }
+
+
 
         }
 

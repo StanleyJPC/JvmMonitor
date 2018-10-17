@@ -28,7 +28,7 @@ public class SnmpSender {
 
     public void initComm() throws IOException {
         // 设置管理进程的IP和端口
-        targetAddress = GenericAddress.parse("udp:localhost/");
+        targetAddress = GenericAddress.parse("udp:15.45.255.144/");
         TransportMapping transport = new DefaultUdpTransportMapping();
         snmp = new Snmp(transport);
         transport.listen();
@@ -40,7 +40,7 @@ public class SnmpSender {
      *
      * @throws IOException
      */
-    public void sendTrap() throws IOException { targetAddress = GenericAddress.parse("udp:localhost/7070");
+    public void sendTrap() throws IOException { targetAddress = GenericAddress.parse("udp:15.45.255.144/162");
         // 设置 target
         CommunityTarget target = new CommunityTarget();
         target.setAddress(targetAddress);
